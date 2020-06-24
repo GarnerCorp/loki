@@ -5,16 +5,7 @@
 <a href="https://goreportcard.com/report/github.com/grafana/loki"><img src="https://goreportcard.com/badge/github.com/grafana/loki" alt="Go Report Card" /></a>
 <a href="https://slack.grafana.com/"><img src="https://img.shields.io/badge/join%20slack-%23loki-brightgreen.svg" alt="Slack" /></a>
 
-<<<<<<< HEAD
 # Loki: like Prometheus, but for logs.
-=======
-- [Distributed Loki](https://github.com/whyeasy/helm-charts/tree/master/charts/distributed-loki)
-- [Prometheus MongoDb Exporter](https://github.com/whyeasy/helm-charts/tree/master/charts/prometheus-mongodb-exporter)
-- [k8s Node Termination Handler](https://github.com/whyeasy/helm-charts/tree/master/charts/k8s-node-termination-handler)
-- [Gitlab-extra-expoter](https://github.com/Whyeasy/helm-charts/tree/master/charts/gitlab-extra-exporter)
-- [Stackdriver-exporter](https://github.com/Whyeasy/helm-charts/tree/master/charts/stackdriver-exporter)
-- [Sonarcloud-exporter](https://github.com/Whyeasy/helm-charts/tree/master/charts/sonarcloud -exporter)
->>>>>>> Add Sonarcloud exporter chart
 
 Loki is a horizontally-scalable, highly-available, multi-tenant log aggregation system inspired by [Prometheus](https://prometheus.io/).
 It is designed to be very cost effective and easy to operate.
@@ -22,7 +13,6 @@ It does not index the contents of the logs, but rather a set of labels for each 
 
 Compared to other log aggregation systems, Loki:
 
-<<<<<<< HEAD
 - does not do full text indexing on logs. By storing compressed, unstructured logs and only indexing metadata, Loki is simpler to operate and cheaper to run.
 - indexes and groups log streams using the same labels you’re already using with Prometheus, enabling you to seamlessly switch between metrics and logs using the same labels that you’re already using with Prometheus.
 - is an especially good fit for storing [Kubernetes](https://kubernetes.io/) Pod logs. Metadata such as Pod labels is automatically scraped and indexed.
@@ -119,21 +109,12 @@ $ cd $GOPATH/src/github.com/grafana/loki # GOPATH is $HOME/go by default.
 $ go build ./cmd/loki
 $ ./loki -config.file=./cmd/loki/loki-local-config.yaml
 ...
-=======
-```sh
-helm repo add whyeasy-helm-charts https://whyeasy.github.io/helm-charts
->>>>>>> Add Sonarcloud exporter chart
 ```
 
 To build Promtail on non-Linux platforms, use the following command:
 
-<<<<<<< HEAD
 ```bash
 $ go build ./cmd/promtail
-=======
-```sh
-helm install whyeasy-helm-charts/[CHART_NAME]
->>>>>>> Add Sonarcloud exporter chart
 ```
 
 On Linux, Promtail requires the systemd headers to be installed for
