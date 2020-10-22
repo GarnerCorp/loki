@@ -6,6 +6,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels: {{- include "loki-helm.labels" . | nindent 4 }}
     app.kubernetes.io/component: consul
+  {{- if .Values.annotations }}
+  annotations:
+  {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
 spec:
   minReadySeconds: 10
   replicas: 1
@@ -17,6 +21,9 @@ spec:
     metadata:
       annotations:
         consul-hash: 5778cd539088c126eed973ed617144e1
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels: {{- include "loki-helm.labels" . | nindent 8 }}
         app.kubernetes.io/component: consul
     spec:

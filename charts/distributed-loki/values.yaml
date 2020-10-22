@@ -1,3 +1,6 @@
+annotations: {}
+podAnnotations: {}
+
 loki:
   # loki.image -- Image repository for Loki images.
   image: grafana/loki:1.6.1

@@ -5,6 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels: {{- include "loki-helm.labels" . | nindent 4 }}
     app.kubernetes.io/component: table-manager
+  {{- if .Values.annotations }}
+  annotations:
+  {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
 spec:
   minReadySeconds: 10
   replicas: {{ .Values.tableManager.replicaCount }}
@@ -16,6 +20,9 @@ spec:
     metadata:
       annotations:
         config_hash: 8f80031113ab434770ef7e9215512968
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels: {{- include "loki-helm.labels" . | nindent 8 }}
         app.kubernetes.io/component: table-manager
     spec:

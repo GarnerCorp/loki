@@ -5,6 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels: {{- include "loki-helm.labels" . | nindent 4 }}
     app.kubernetes.io/component: gateway
+  {{- if .Values.annotations }}
+  annotations:
+  {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
 spec:
   minReadySeconds: 10
   replicas: {{ .Values.gateway.replicaCount }}
@@ -16,6 +20,10 @@ spec:
     metadata:
       labels: {{- include "loki-helm.labels" . | nindent 8 }}
         app.kubernetes.io/component: gateway
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
     spec:
       {{- if .Values.gateway.affinity }}
       affinity: {{- toYaml .Values.gateway.affinity | nindent 8 }}

@@ -5,6 +5,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels: {{- include "loki-helm.labels" . | nindent 4 }}
     app.kubernetes.io/component: memcached
+  {{- if .Values.annotations }}
+  annotations:
+  {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.memcached.replicaCount }}
   selector:
@@ -15,6 +19,10 @@ spec:
     metadata:
       labels: {{- include "loki-helm.labels" . | nindent 8 }}
         app.kubernetes.io/component: memcached
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
     spec:
       {{- if .Values.memcached.affinity }}
       affinity: {{- toYaml .Values.memcached.affinity | nindent 8 }}
