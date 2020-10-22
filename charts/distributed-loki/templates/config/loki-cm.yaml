@@ -45,6 +45,7 @@ data:
                     watch_rate_limit: 1
                 store: consul
                 {{ end }}
+            heartbeat_timeout: 1m
 
     frontend:
         compress_responses: {{ .Values.querierFrontend.config.compressResponses }}
@@ -63,6 +64,7 @@ data:
         chunk_block_size: {{ .Values.ingester.config.chunkSize }}
         chunk_idle_period: {{ .Values.ingester.config.chunkIdle }}
         chunk_target_size: {{ .Values.ingester.config.chunkTargetSize }}
+        chunk_retain_period: {{ .Values.ingester.config.chunkRetainPeriod }}
         max_chunk_age: {{ .Values.ingester.config.maxChunkAge }}
         lifecycler:
             heartbeat_period: 5s
@@ -120,10 +122,11 @@ data:
 
     schema_config:
         configs:
-          - from: "2018-04-15"
+          - from: "2020-07-21"
             index:
-                period: 168h
-                prefix: monitoring_index_
+                prefix: index_
+            chunks:
+                prefix: chunks_
             object_store: {{ .Values.storage.objectStore }}
             schema: v11
             store: {{ .Values.storage.store }}
@@ -161,16 +164,6 @@ data:
                 service: memcached-client      
                 
     table_manager:
-        chunk_tables_provisioning:
-            inactive_read_throughput: 0
-            inactive_write_throughput: 0
-            provisioned_read_throughput: 0
-            provisioned_write_throughput: 0
-        index_tables_provisioning:
-            inactive_read_throughput: 0
-            inactive_write_throughput: 0
-            provisioned_read_throughput: 0
-            provisioned_write_throughput: 0
         retention_deletes_enabled: {{ .Values.storage.config.retentionDelete }}
         retention_period: {{ .Values.storage.config.retentionPeriod }}
 kind: ConfigMap
