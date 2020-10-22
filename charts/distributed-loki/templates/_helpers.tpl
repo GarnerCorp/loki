@@ -81,7 +81,7 @@ Naming deployments
   {{- printf "%s-memcached" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.memcached-frontend" -}}
-  {{- printf "%s-memcahced-frontend" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-memcached-frontend" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.memcached-index-queries" -}}
   {{- printf "%s-memcached-index-queries" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
