@@ -242,7 +242,7 @@ tableManager:
   affinity: {}
 
 storage:
-  # storage.store -- Type of store to use for you indexes. Currently only cassandra is supported.
+  # storage.store -- Type of store to use for your indexes.
   store: cassandra
   # storage.objectstore -- Type of store to use for your chunks. Currently only gcs is supported.
   objectStore: gcs
@@ -251,11 +251,18 @@ storage:
     retentionPeriod: 0
     # storage.config.retentionDelete -- Enable the deletion of indexes.
     retentionDelete: false
-    # storage.config.storeUrl -- Url of your cassandra instance.
+  cassandra:
+    # storage.cassandra.storeUrl -- Url of your cassandra instance.
     storeUrl: loki-cassandra.monitoring.svc
-    # storage.config.replicationFactor -- Replication factor of the label index in cassanra
+    # storage.cassandra.replicationFactor -- Replication factor of the label index in cassanra
     replicationFactor: 1
-    # storage.config.bucketName -- Name of your gcs bucket.
+  bigtable:
+    # storage.bigtable.project -- Name of the google project
+    project: ""
+    # storage.bigtable.instance -- The google project instance to access
+    instance: loki-instance
+  gcs:
+    # storage.gcs.bucketName -- Name of your gcs bucket
     bucketName: loki_distributed
 
 canary:

@@ -138,13 +138,19 @@ data:
         http_server_write_timeout: 1m
 
     storage_config:
+        {{- if eq .Values.storage.store "bigtable" }}
+        bigtable:
+            project: {{ .Values.storage.bigtable.project }}
+            instance: {{ .Values.storage.bigtable.instance }}
+        {{- else }}
         cassandra:
-            addresses: {{ .Values.storage.config.storeUrl }}
+            addresses: {{ .Values.storage.cassandra.storeUrl }}
             auth: false
             keyspace: lokiindex
-            replication_factor: {{ .Values.storage.config.replicationFactor }}
+            replication_factor: {{ .Values.storage.cassandra.replicationFactor }}
+        {{- end }}
         gcs:
-            bucket_name: {{ .Values.storage.config.bucketName }}
+            bucket_name: {{ .Values.storage.gcs.bucketName }}
         index_queries_cache_config:
             memcached:
                 batch_size: 100
