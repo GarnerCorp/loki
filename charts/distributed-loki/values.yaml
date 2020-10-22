@@ -72,14 +72,14 @@ gateway:
   # gateway.extraVolumes -- Allow Extra volumes into the deployment
   extraVolumes: []
   service:
-    #gateway.service.annotations -- Annotations to apply on gateway service
+    # gateway.service.annotations -- Annotations to apply on gateway service
     annotations: {}
-    #gateway.service.type -- Service type
+    # gateway.service.type -- Service type
     type: ClusterIP
   ingress:
     # gateway.ingress.enabled -- Enable Ingress for your gateway deployment
     enabled: false
-    # gateway.ingress.annotations -- 
+    # gateway.ingress.annotations --
     annotations: {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
@@ -257,7 +257,7 @@ querierFrontend:
   config:
     # querierFrontend.config.splitQueries -- Set value for parallelize queries intervals
     splitQueries: 30m
-    # querierFrontend.config.cacheResult -- Cache Results 
+    # querierFrontend.config.cacheResult -- Cache Results
     cacheResult: true
     # querierFrontend.config.logQueries -- Log queries that are longer than X amount of time.
     logQueries: ""
