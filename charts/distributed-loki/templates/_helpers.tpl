@@ -66,38 +66,38 @@ Create the name of the service account to use
 Naming deployments
 */}}
 {{- define "loki-helm.consul" -}}
-  {{- printf "%s-consul" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-consul" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.distributor" -}}
-  {{- printf "%s-distributor" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-distributor" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.gateway" -}}
-  {{- printf "%s-gateway" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-gateway" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.ingester" -}}
-  {{- printf "%s-ingester" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-ingester" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.memcached" -}}
-  {{- printf "%s-memcached" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-memcached" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.memcached-frontend" -}}
-  {{- printf "%s-memcahced-frontend" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-memcahced-frontend" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.memcached-index-queries" -}}
-  {{- printf "%s-memcached-index-queries" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-memcached-index-queries" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.memcached-index-writes" -}}
-  {{- printf "%s-memcached-index-writes" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-memcached-index-writes" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.querier" -}}
-  {{- printf "%s-querier" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-querier" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.querier-frontend" -}}
-  {{- printf "%s-querier-frontend" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-querier-frontend" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.table-manager" -}}
-  {{- printf "%s-table-manager" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-table-manager" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "loki-helm.canary" -}}
-  {{- printf "%s-loki-canary" (include "loki-helm.fullname" .) -}}
+  {{- printf "%s-loki-canary" (include "loki-helm.fullname" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
