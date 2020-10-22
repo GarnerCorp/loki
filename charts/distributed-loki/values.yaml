@@ -18,10 +18,7 @@ consul:
   # consul.pullPolicy -- Image pull policy for the Consul images.
   pullPolicy: IfNotPresent
   # consul.resources -- Custom resources for the Consul deployment.
-  resources:
-    requests:
-      cpu: 100m
-      memory: 500Mi
+  resources: {}
   # consul.tolerations -- Add tolerations for pod assignment
   tolerations: []
   # consul.nodeSelector -- Add Node labels for pod assignment
@@ -33,13 +30,7 @@ distributor:
   # distributor.replicaCount -- Number of replicas for the Distributor deployment.
   replicaCount: 3
   # distributor.resources -- Custom resources for the Distributor deployment.
-  resources:
-    limits:
-      cpu: 1
-      memory: 1Gi
-    requests:
-      cpu: 500m
-      memory: 500Mi
+  resources: {}
   # distributor.env -- Allow Extra env variables into the deployment
   env: []
   # distributor.extraVolumeMounts -- Allow Extra volume mounts into the deployment
@@ -61,10 +52,7 @@ gateway:
   # gateway.pullPolicy -- Image pull policy for the Gateway images.
   pullPolicy: IfNotPresent
   # gateway.resources -- Custom resources for the Gateway deployment.
-  resources:
-    requests:
-      cpu: 50m
-      memory: 100Mi
+  resources: {}
   # gateway.env -- Allow Extra env variables into the deployment
   env: []
   # gateway.extraVolumeMounts -- Allow Extra volume mounts into the deployment
@@ -99,13 +87,7 @@ ingester:
   # ingester.replicaCount -- Number of replicas for the Ingester deployment.
   replicaCount: 3
   # ingester.resources -- Custom resources for the Ingester deployment.
-  resources:
-    limits:
-      cpu: 2
-      memory: 10Gi
-    requests:
-      cpu: 1
-      memory: 5Gi
+  resources: {}
   # ingester.env -- Allow Extra env variables into the deployment
   env: []
   # ingester.extraVolumeMounts -- Allow Extra volume mounts into the deployment
@@ -126,12 +108,14 @@ ingester:
     chunkIdle: 30m
     # ingester.config.chunkTargetSize -- A target _compressed_ size in bytes for chunks
     chunkTargetSize: 0
+    # ingester.config.chunkRetainPeriod -- How long chunks should be retained in-memory after they've been flushed.
+    chunkRetainPeriod: 15m
     # ingester.config.maxChunkAge -- The maximum duration of a timeseries chunk in memory.
     maxChunkAge: 1h
     # ingester.config.trasnferRetries -- Retry transfer chunks when leaving ring
     transferRetries: 10
     # ingester.config.replicationFactor -- Replication factor between ingesters. Minimal is 1.
-    replicationFactor: 2
+    replicationFactor: 3
 
 
 memcached:
@@ -142,13 +126,7 @@ memcached:
   # memcached.pullPolicy -- Image pull policy for the Memcached images.
   pullPolicy: IfNotPresent
   # memcached.resources -- Custom resources for the Memcached deployment.
-  resources:
-    limits:
-      cpu: 3
-      memory: 6Gi
-    requests:
-      cpu: 500m
-      memory: 5Gi
+  resources: {}
   # memcached.tolerations -- Add tolerations for pod assignment
   tolerations: []
   # memcached.nodeSelector -- Add Node labels for pod assignment
@@ -160,13 +138,7 @@ memcachedFrontend:
   # memcachedFrontend.replicaCount -- Number of replicas for the Memcached-frontend deployment.
   replicaCount: 3
   # memcachedFrontend.resources -- Custom resources for the Memcached-frontend deployment.
-  resources:
-    limits:
-      cpu: 3
-      memory: 1546Mi
-    requests:
-      cpu: 500m
-      memory: 1329Mi
+  resources: {}
   # memcachedFrontend.tolerations -- Add tolerations for pod assignment
   tolerations: []
   # memcachedFrontend.nodeSelector -- Add Node labels for pod assignment
@@ -178,13 +150,7 @@ memcachedIndexQueries:
   # memcachedIndexQueries.replicaCount -- Number of replicas for the Memcached-index-queries deployment.
   replicaCount: 3
   # memcachedIndexQueries.resources -- Custom resources for the Memcached-index-queries deployment.
-  resources:
-    limits:
-      cpu: 3
-      memory: 1536Mi
-    requests:
-      cpu: 500m
-      memory: 1329Mi
+  resources: {}
   # memcachedIndexQueries.tolerations -- Add tolerations for pod assignment
   tolerations: []
   # memcachedIndexQueries.nodeSelector -- Add Node labels for pod assignment
@@ -196,13 +162,7 @@ memcachedIndexWrites:
   # memcachedIndexWrites.replicaCount -- Number of replicas for the Memcached-index-writes deployment.
   replicaCount: 3
   # memcachedIndexWrites.resources -- Custom resources for the Memcached-index-writes deployment.
-  resources:
-    limits:
-      cpu: 3
-      memory: 1536Mi
-    requests:
-      cpu: 500m
-      memory: 1329Mi
+  resources: {}
   # memcachedIndexWrites.tolerations -- Add tolerations for pod assignment
   tolerations: []
   # memcachedIndexWrites.nodeSelector -- Add Node labels for pod assignment
@@ -236,12 +196,7 @@ querierFrontend:
   # querierFrontend.replicaCount -- Number of replicas for the Querier-frontend deployment.
   replicaCount: 2
   # querierFrontend.resources -- Customer resources for the Querier-frontend deployment.
-  resources:
-    limits:
-      memory: 1200Mi
-    requests:
-      cpu: "2"
-      memory: 600Mi
+  resources: {}
   # querierFrontend.env -- Allow Extra env variables into the deployment
   env: []
   # querierFrontend.extraVolumeMounts -- Allow Extra volume mounts into the deployment
@@ -269,13 +224,7 @@ tableManager:
   # tableManager.replicaCount -- Number of replicas for the Table-manager deployment.
   replicaCount: 1
   # tableManager.resources -- Custom resources for the Table-manager deployment.
-  resources:
-    limits:
-      cpu: 200m
-      memory: 200Mi
-    requests:
-      cpu: 100m
-      memory: 100Mi
+  resources: {}
   # tableManager.env -- Allow Extra env variables into the deployment
   env: []
   # tableManager.extraVolumeMounts -- Allow Extra volume mounts into the deployment
