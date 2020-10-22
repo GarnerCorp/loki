@@ -31,7 +31,7 @@ Current chart version is `0.0.1`
 | mongodb.secretKey | string | `nil` | Key within the secret containing the MongoDB URI. |
 | mongodb.secretName | string | `nil` | Secret name containing the MongoDB URI. |
 | nameOverride | string | `""` | Override the application name |
-| nodeSelector | object | `{}` | Add Node labels for pod assginment |
+| nodeSelector | object | `{}` | Add Node labels for pod assignment |
 | podAnnotations | object | `{}` |  |
 | port | string | `"9216"` | The container port to listen on |
 | priorityClassName | string | `""` | Pod priority class name |

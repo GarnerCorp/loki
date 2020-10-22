@@ -51,7 +51,7 @@ spec:
         - containerPort: 9095
           name: grpc
         {{- if .Values.memberlist.enable }}
-        - containerPort: {{ .Values.memberlist.port}}
+        - containerPort: {{ .Values.memberlist.port }}
           name: memberlist
         {{- end }}
         {{- if .Values.querier.resources }}

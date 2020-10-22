@@ -41,7 +41,7 @@ mongodb:
 # nameOverride -- Override the application name
 nameOverride: ""
 
-# nodeSelector -- Add Node labels for pod assginment
+# nodeSelector -- Add Node labels for pod assignment
 nodeSelector: {}
 
 podAnnotations: {}
@@ -112,5 +112,5 @@ serviceMonitor:
   # serviceMonitor.additionalLabels -- Additional labels to add to the ServiceMonitor
   additionalLabels: {}
 
-# tolartions -- Add tolartions for pod assginment
+# tolerations -- Add tolerations for pod assignment
 tolerations: []
