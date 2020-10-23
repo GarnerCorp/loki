@@ -29,3 +29,6 @@ coverage.txt
 
 # emacs
 .#*
+
+# IDEs and Editors
+.idea/
