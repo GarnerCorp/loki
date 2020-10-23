@@ -263,7 +263,7 @@ storage:
     instance: loki-instance
   gcs:
     # storage.gcs.bucketName -- Name of your gcs bucket
-    bucketName: loki_distributed
+    bucketName: modular_loki
 
 canary:
   # canary.enabled -- Enable the Loki-Canary deployment

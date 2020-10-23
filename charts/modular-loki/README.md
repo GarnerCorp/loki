@@ -1,4 +1,4 @@
-# loki-distributed
+# modular-loki
 
 ![Version: 0.5.1](https://img.shields.io/badge/Version-0.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.1](https://img.shields.io/badge/AppVersion-1.6.1-informational?style=flat-square)
 
@@ -120,7 +120,7 @@ A Helm chart for Kubernetes
 | storage.cassandra.storeUrl | string | `"loki-cassandra.monitoring.svc"` | Url of your cassandra instance. |
 | storage.config.retentionDelete | bool | `false` | Enable the deletion of indexes. |
 | storage.config.retentionPeriod | int | `0` | Retention period of storing logs. |
-| storage.gcs.bucketName | string | `"loki_distributed"` | Name of your gcs bucket |
+| storage.gcs.bucketName | string | `"modular_loki"` | Name of your gcs bucket |
 | storage.objectStore | string | `"gcs"` |  |
 | storage.store | string | `"cassandra"` | Type of store to use for your indexes. |
 | tableManager.affinity | object | `{}` | Replace default affinity with custom affinity |
