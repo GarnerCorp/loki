@@ -1,7 +1,7 @@
 dependencies:
-- name: "loki"
-  condition: loki.enabled
-  repository: "file://../loki"
+- name: "standalone-loki"
+  condition: loki.standaloneMode
+  repository: "file://../standalone-loki"
   version: "^0.31.1"
 - name: "promtail"
   condition: promtail.enabled

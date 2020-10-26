@@ -14,7 +14,7 @@ data:
   loki-stack-datasource.yaml: |-
     apiVersion: 1
     datasources:
-{{- if .Values.loki.enabled }}
+{{- if .Values.loki.standaloneMode }}
     - name: Loki
       type: loki
       access: proxy
