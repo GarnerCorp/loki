@@ -1,5 +1,6 @@
 loki:
-  standaloneMode: true
+  standaloneMode: false
+  modularMode: true
 
 promtail:
   enabled: true

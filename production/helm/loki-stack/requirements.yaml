@@ -3,6 +3,10 @@ dependencies:
   condition: loki.standaloneMode
   repository: "file://../standalone-loki"
   version: "^0.32.0"
+- name: "modular-loki"
+  condition: loki.modularMode
+  repository: "file://../modular-loki"
+  version: "^0.0.1"
 - name: "promtail"
   condition: promtail.enabled
   repository: "file://../promtail"
