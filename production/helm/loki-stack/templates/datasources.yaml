@@ -24,7 +24,7 @@ data:
     - name: Loki
       type: loki
       access: proxy
-      url: http://{{ include "loki-stack.name" }}-modular-loki-querier-frontend.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.loki.servicePort }}
+      url: http://{{(include "loki-stack.name" .)}}-modular-loki-querier-frontend.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.loki.servicePort }}
       version: 1
 {{- end }}
 {{- if .Values.prometheus.enabled }}
