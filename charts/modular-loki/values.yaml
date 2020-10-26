@@ -1,0 +1,294 @@
+annotations: {}
+podAnnotations: {}
+
+loki:
+  # loki.image -- Image repository for Loki images.
+  image: grafana/loki:1.6.1
+  # loki.pullPolicy -- Image pull policy for Loki images.
+  pullPolicy: IfNotPresent
+
+memberlist:
+  # memberlist.enable -- Enable the ring to be a Memberslist. This will disable consul.
+  enable: false
+  # memberlist.rejoin -- How often to rejoin the cluster.
+  rejoin: 5m
+  # memberlist.port -- Port to listen on for gossip messages.
+  port: 7946
+
+consul:
+  # consul.image -- Image repository for the Consul images.
+  image: consul:1.5.3
+  # consul.pullPolicy -- Image pull policy for the Consul images.
+  pullPolicy: IfNotPresent
+  # consul.resources -- Custom resources for the Consul deployment.
+  resources: {}
+  # consul.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # consul.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # consul.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+
+distributor:
+  # distributor.replicaCount -- Number of replicas for the Distributor deployment.
+  replicaCount: 3
+  # distributor.resources -- Custom resources for the Distributor deployment.
+  resources: {}
+  # distributor.env -- Allow Extra env variables into the deployment
+  env: []
+  # distributor.extraVolumeMounts -- Allow Extra volume mounts into the deployment
+  extraVolumeMounts: []
+  # distributor.extraVolumes -- Allow Extra volumes into the deployment
+  extraVolumes: []
+  # distributor.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # distributor.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # distributor.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+
+gateway:
+  # gateway.replicaCount -- Number of replicas for the Gateway deployment.
+  replicaCount: 3
+  # gateway.image -- Image repository for the Gateway images.
+  image: nginx:1.18.0-alpine
+  # gateway.pullPolicy -- Image pull policy for the Gateway images.
+  pullPolicy: IfNotPresent
+  # gateway.resources -- Custom resources for the Gateway deployment.
+  resources: {}
+  # gateway.env -- Allow Extra env variables into the deployment
+  env: []
+  # gateway.extraVolumeMounts -- Allow Extra volume mounts into the deployment
+  extraVolumeMounts: []
+  # gateway.extraVolumes -- Allow Extra volumes into the deployment
+  extraVolumes: []
+  service:
+    # gateway.service.annotations -- Annotations to apply on gateway service
+    annotations: {}
+    # gateway.service.type -- Service type
+    type: ClusterIP
+  ingress:
+    # gateway.ingress.enabled -- Enable Ingress for your gateway deployment
+    enabled: false
+    # gateway.ingress.annotations --
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    host: chart-example.local
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  # gateway.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # gateway.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # gateway.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+
+ingester:
+  # ingester.replicaCount -- Number of replicas for the Ingester deployment.
+  replicaCount: 3
+  # ingester.resources -- Custom resources for the Ingester deployment.
+  resources: {}
+  # ingester.env -- Allow Extra env variables into the deployment
+  env: []
+  # ingester.extraVolumeMounts -- Allow Extra volume mounts into the deployment
+  extraVolumeMounts: []
+  # ingester.extraVolumes -- Allow Extra volumes into the deployment
+  extraVolumes: []
+
+  # ingester.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # ingester.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # ingester.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+  config:
+    # ingester.config.chunkSize -- The targeted _uncompressed_ size in bytes of a chunk block
+    chunkSize: 262144
+    # ingester.config.chunkIdle -- How long chunks should sit in-memory with no updates before being flushed if they don't hit the max block size
+    chunkIdle: 30m
+    # ingester.config.chunkTargetSize -- A target _compressed_ size in bytes for chunks
+    chunkTargetSize: 0
+    # ingester.config.chunkRetainPeriod -- How long chunks should be retained in-memory after they've been flushed.
+    chunkRetainPeriod: 15m
+    # ingester.config.maxChunkAge -- The maximum duration of a timeseries chunk in memory.
+    maxChunkAge: 1h
+    # ingester.config.trasnferRetries -- Retry transfer chunks when leaving ring
+    transferRetries: 10
+    # ingester.config.replicationFactor -- Replication factor between ingesters. Minimal is 1.
+    replicationFactor: 3
+
+
+memcached:
+  # memcached.replicaCount -- Number of replicas for the Memcached deployment.
+  replicaCount: 3
+  # memcached.image -- Image repository for the Memcached images.
+  image: memcached:1.6.7-alpine
+  # memcached.pullPolicy -- Image pull policy for the Memcached images.
+  pullPolicy: IfNotPresent
+  # memcached.resources -- Custom resources for the Memcached deployment.
+  resources: {}
+  # memcached.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # memcached.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # memcached.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+
+memcachedFrontend:
+  # memcachedFrontend.replicaCount -- Number of replicas for the Memcached-frontend deployment.
+  replicaCount: 3
+  # memcachedFrontend.resources -- Custom resources for the Memcached-frontend deployment.
+  resources: {}
+  # memcachedFrontend.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # memcachedFrontend.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # memcachedFrontend.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+
+memcachedIndexQueries:
+  # memcachedIndexQueries.replicaCount -- Number of replicas for the Memcached-index-queries deployment.
+  replicaCount: 3
+  # memcachedIndexQueries.resources -- Custom resources for the Memcached-index-queries deployment.
+  resources: {}
+  # memcachedIndexQueries.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # memcachedIndexQueries.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # memcachedIndexQueries.affinity -- Add custom affinity to deployment
+  affinity: {}
+
+memcachedIndexWrites:
+  # memcachedIndexWrites.replicaCount -- Number of replicas for the Memcached-index-writes deployment.
+  replicaCount: 3
+  # memcachedIndexWrites.resources -- Custom resources for the Memcached-index-writes deployment.
+  resources: {}
+  # memcachedIndexWrites.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # memcachedIndexWrites.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # memcachedIndexWrites.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+
+querier:
+  # querier.replicaCount -- Number of replicas for the Querier deployment.
+  replicaCount: 3
+  # querier.resources -- Custom resources for the Querier deployment.
+  resources: {}
+  # querier.env -- Allow Extra env variables into the deployment
+  env: []
+  # querier.extraVolumeMounts -- Allow Extra volume mounts into the deployment
+  extraVolumeMounts: []
+  # querier.extraVolumes -- Allow Extra volumes into the deployment
+  extraVolumes: []
+  # querier.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # querier.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # querier.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+  config:
+    # querier.config.parallelism -- Number of simultaneous queries to process
+    parallelism: 10
+
+
+querierFrontend:
+  # querierFrontend.replicaCount -- Number of replicas for the Querier-frontend deployment.
+  replicaCount: 2
+  # querierFrontend.resources -- Customer resources for the Querier-frontend deployment.
+  resources: {}
+  # querierFrontend.env -- Allow Extra env variables into the deployment
+  env: []
+  # querierFrontend.extraVolumeMounts -- Allow Extra volume mounts into the deployment
+  extraVolumeMounts: []
+  # querierFrontend.extraVolumes -- Allow Extra volumes into the deployment
+  extraVolumes: []
+  # querierFrontend.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # querierFrontend.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # querierFrontend.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+  config:
+    # querierFrontend.config.splitQueries -- Set value for parallelize queries intervals
+    splitQueries: 30m
+    # querierFrontend.config.cacheResult -- Cache Results
+    cacheResult: true
+    # querierFrontend.config.logQueries -- Log queries that are longer than X amount of time.
+    logQueries: ""
+    # querierFrontend.config.compressResponses -- Compress responses fomr queries.
+    compressResponses: true
+
+
+tableManager:
+  # tableManager.replicaCount -- Number of replicas for the Table-manager deployment.
+  replicaCount: 1
+  # tableManager.resources -- Custom resources for the Table-manager deployment.
+  resources: {}
+  # tableManager.env -- Allow Extra env variables into the deployment
+  env: []
+  # tableManager.extraVolumeMounts -- Allow Extra volume mounts into the deployment
+  extraVolumeMounts: []
+  # tableManager.extraVolumes -- Allow Extra volumes into the deployment
+  extraVolumes: []
+  # tableManager.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # tableManager.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # tableManager.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+
+storage:
+  # storage.store -- Type of store to use for your indexes.
+  store: cassandra
+  # storage.objectstore -- Type of store to use for your chunks. Currently only gcs is supported.
+  objectStore: gcs
+  config:
+    # storage.config.retentionPeriod -- Retention period of storing logs.
+    retentionPeriod: 0
+    # storage.config.retentionDelete -- Enable the deletion of indexes.
+    retentionDelete: false
+  cassandra:
+    # storage.cassandra.storeUrl -- Url of your cassandra instance.
+    storeUrl: loki-cassandra.monitoring.svc
+    # storage.cassandra.replicationFactor -- Replication factor of the label index in cassanra
+    replicationFactor: 1
+  bigtable:
+    # storage.bigtable.project -- Name of the google project
+    project: ""
+    # storage.bigtable.instance -- The google project instance to access
+    instance: loki-instance
+  gcs:
+    # storage.gcs.bucketName -- Name of your gcs bucket
+    bucketName: modular_loki
+
+canary:
+  # canary.enabled -- Enable the Loki-Canary deployment
+  enabled: false
+  # canary.image -- Which image to use for Loki-Canary
+  image: grafana/loki-canary:1.6.1
+  # canary.resources -- Custom resources for the Loki-Canary deployment.
+  resources: {}
+  # canary.tolerations -- Add tolerations for pod assignment
+  tolerations: []
+  # canary.nodeSelector -- Add Node labels for pod assignment
+  nodeSelector: {}
+  # canary.affinity -- Replace default affinity with custom affinity
+  affinity: {}
+  # canary.args -- Allow extra arguments into the container.
+  args: []
+  # canary.env -- Allow Extra env variables into the deployment
+  env: []
+
+serviceMonitor:
+  # serviceMonitor.enabled -- Enable service monitors for Loki deployment.
+  enabled: false
+  # serviceMonitor.interval -- Set interval scraping the targets.
+  interval: ""
+  # serviceMonitor.additionalLabels -- Set additional labels for the service monitor.
+  additionalLabels: {}
+  # serviceMonitor.scrapeTimeout -- Set time out for scraping.
+  # scrapeTimeout: 10s

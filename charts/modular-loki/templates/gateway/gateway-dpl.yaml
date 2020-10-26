@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "loki-helm.gateway" . }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "loki-helm.labels" . | nindent 4 }}
+    app.kubernetes.io/component: gateway
+  {{- if .Values.annotations }}
+  annotations:
+  {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  minReadySeconds: 10
+  replicas: {{ .Values.gateway.replicaCount }}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels: {{- include "loki-helm.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: gateway
+  template:
+    metadata:
+      labels: {{- include "loki-helm.labels" . | nindent 8 }}
+        app.kubernetes.io/component: gateway
+      {{- if .Values.podAnnotations }}
+      annotations:
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- if .Values.gateway.affinity }}
+      affinity: {{- toYaml .Values.gateway.affinity | nindent 8 }}
+      {{- else }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels: {{- include "loki-helm.selectorLabels" . | nindent 16 }}
+                app.kubernetes.io/component: gateway
+            topologyKey: kubernetes.io/hostname
+      {{- end }}
+      nodeSelector:
+        {{- toYaml .Values.gateway.nodeSelector | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.gateway.tolerations | nindent 8 }}
+      containers:
+      - image: {{ .Values.gateway.image }}
+        imagePullPolicy: {{ .Values.gateway.pullPolicy | quote }}
+        name: nginx
+        {{- if .Values.gateway.env }}
+        env: {{- toYaml .Values.gateway.env | nindent 8 }}
+        {{- end }}
+        ports:
+        - containerPort: 80
+          name: http
+        {{- if .Values.gateway.resources }}
+        resources: {{- toYaml .Values.gateway.resources | nindent 12 }}
+        {{- end }}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15 
+          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /etc/nginx
+          name: gateway-config
+        {{- with .Values.gateway.extraVolumeMounts }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      volumes:
+      - configMap:
+          name: {{ include "loki-helm.gateway" . }}-config
+        name: gateway-config
+      {{- with .Values.gateway.extraVolumes }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
