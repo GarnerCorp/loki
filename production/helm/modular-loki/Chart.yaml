@@ -1,6 +1,0 @@
-apiVersion: v2
-name: modular-loki
-description: "Loki running in microservices mode"
-type: application
-version: 0.0.1
-appVersion: 1.6.1
