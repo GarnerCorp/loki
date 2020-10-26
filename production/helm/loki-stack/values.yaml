@@ -1,5 +1,5 @@
 loki:
-  enabled: true
+  standaloneMode: true
 
 promtail:
   enabled: true
