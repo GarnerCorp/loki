@@ -22,6 +22,56 @@ entries:
   loki-stack:
   - apiVersion: v1
     appVersion: v1.6.1
+    created: "2020-10-27T14:17:34.097080735Z"
+    dependencies:
+    - condition: loki.standaloneMode
+      name: standalone-loki
+      repository: file://../standalone-loki
+      version: ^0.32.0
+    - condition: loki.modularMode
+      name: modular-loki
+      repository: file://../modular-loki
+      version: ^0.0.1
+    - condition: promtail.enabled
+      name: promtail
+      repository: file://../promtail
+      version: ^0.26.0
+    - condition: fluent-bit.enabled
+      name: fluent-bit
+      repository: file://../fluent-bit
+      version: ^0.4.0
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: ~5.7.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: ~11.16.0
+    - condition: filebeat.enabled
+      name: filebeat
+      repository: https://helm.elastic.co
+      version: ~7.8.0
+    - condition: logstash.enabled
+      name: logstash
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: ~2.4.0
+    description: 'Loki: like Prometheus, but for logs.'
+    digest: 4b70d4f55a5b70bb262f61c0c52fddaf6868c61943381e6ed56da9d5341d2099
+    home: https://grafana.com/loki
+    icon: https://github.com/grafana/loki/raw/master/docs/logo.png
+    kubeVersion: ^1.10.0-0
+    maintainers:
+    - email: lokiproject@googlegroups.com
+      name: Loki Maintainers
+    name: loki-stack
+    sources:
+    - https://github.com/grafana/loki
+    urls:
+    - https://github.com/GarnerCorp/loki/releases/download/loki-stack-1.0.4/loki-stack-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v1
+    appVersion: v1.6.1
     created: "2020-10-27T14:02:58.394964037Z"
     dependencies:
     - condition: loki.standaloneMode
