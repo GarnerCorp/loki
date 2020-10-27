@@ -1,7 +1,10 @@
 loki:
+  # One of these must be set to true for loki to run.
+  # loki.standaloneMode -- if true, runs loki in single binary mode, in a single process
   standaloneMode: false
-  modularMode: true
-
+  # loki.modularMode -- if true, runs loki in microservices mode, in parallel processes
+  modularMode: false
+  
 promtail:
   enabled: true
 
