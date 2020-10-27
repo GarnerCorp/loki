@@ -292,3 +292,7 @@ serviceMonitor:
   additionalLabels: {}
   # serviceMonitor.scrapeTimeout -- Set time out for scraping.
   # scrapeTimeout: 10s
+
+server:
+  httpServerWriteTimeout: 1m
+  httpServerReadTimeout: 1m

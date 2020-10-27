@@ -138,7 +138,8 @@ data:
         grpc_server_max_send_msg_size: 1.048576e+08
         http_listen_port: 3100
         http_server_idle_timeout: 120s
-        http_server_write_timeout: 1m
+        http_server_write_timeout: {{ .Values.server.httpServerWriteTimeout }}
+        http_server_read_timeout: {{ .Values.server.httpServerReadTimeout }}
 
     storage_config:
         {{- if eq .Values.storage.store "bigtable" }}
