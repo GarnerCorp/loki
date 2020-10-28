@@ -104,6 +104,11 @@ data:
         reject_old_samples: true
         reject_old_samples_max_age: 168h
 
+    querier:
+        query_timeout: {{ .Values.querier.config.queryTimeout }}
+        engine:
+            timeout: {{ .Values.querier.config.engine.timeout }}
+
     query_range:
         align_queries_with_step: true
         cache_results: {{ .Values.querierFrontend.config.cacheResult }}

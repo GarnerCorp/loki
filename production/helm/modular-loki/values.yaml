@@ -193,6 +193,12 @@ querier:
   config:
     # querier.config.parallelism -- Number of simultaneous queries to process
     parallelism: 10
+    # querier.config.queryTieout -- Timeout when querying ingesters or storage during the execution of a query request
+    queryTimeout: 1m
+    # Configuration options for the LogQL engine
+    engine:
+      # querier.config.engine.timeout -- Timeout for query execution
+      timeout: 1m
 
 
 querierFrontend:
