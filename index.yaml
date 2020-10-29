@@ -22,6 +22,56 @@ entries:
   loki-stack:
   - apiVersion: v1
     appVersion: v1.6.1
+    created: "2020-10-29T20:28:33.967452087Z"
+    dependencies:
+    - condition: loki.standaloneMode
+      name: standalone-loki
+      repository: file://../standalone-loki
+      version: ^0.32.0
+    - condition: loki.modularMode
+      name: modular-loki
+      repository: file://../modular-loki
+      version: ^0.5.1
+    - condition: promtail.enabled
+      name: promtail
+      repository: file://../promtail
+      version: ^0.26.0
+    - condition: fluent-bit.enabled
+      name: fluent-bit
+      repository: file://../fluent-bit
+      version: ^0.4.0
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: ~5.7.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: https://prometheus-community.github.io/helm-charts
+      version: ~11.16.0
+    - condition: filebeat.enabled
+      name: filebeat
+      repository: https://helm.elastic.co
+      version: ~7.8.0
+    - condition: logstash.enabled
+      name: logstash
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: ~2.4.0
+    description: 'Loki: like Prometheus, but for logs.'
+    digest: 5e07d3b0f68d63b04dcfdb8907407af6b04a46a6ae379a63d1a1f717424d0107
+    home: https://grafana.com/loki
+    icon: https://github.com/grafana/loki/raw/master/docs/logo.png
+    kubeVersion: ^1.10.0-0
+    maintainers:
+    - email: lokiproject@googlegroups.com
+      name: Loki Maintainers
+    name: loki-stack
+    sources:
+    - https://github.com/grafana/loki
+    urls:
+    - https://github.com/GarnerCorp/loki/releases/download/loki-stack-1.5.1/loki-stack-1.5.1.tgz
+    version: 1.5.1
+  - apiVersion: v1
+    appVersion: v1.6.1
     created: "2020-10-29T20:17:13.728935469Z"
     dependencies:
     - condition: loki.standaloneMode
@@ -521,6 +571,16 @@ entries:
     - https://github.com/GarnerCorp/loki/releases/download/loki-stack-1.0.0/loki-stack-1.0.0.tgz
     version: 1.0.0
   modular-loki:
+  - apiVersion: v2
+    appVersion: 1.6.1
+    created: "2020-10-29T20:28:34.281938717Z"
+    description: Loki running in microservices mode
+    digest: c5c5ee9be9bcf47cd5a9314a02fc20de1f388246de1f9b421b601dfec072935a
+    name: modular-loki
+    type: application
+    urls:
+    - https://github.com/GarnerCorp/loki/releases/download/modular-loki-0.5.1/modular-loki-0.5.1.tgz
+    version: 0.5.1
   - apiVersion: v2
     appVersion: 1.6.1
     created: "2020-10-29T20:17:13.874166607Z"
