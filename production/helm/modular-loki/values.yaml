@@ -307,3 +307,4 @@ server:
   httpServerReadTimeout: 1m
   maxRecvMsgSize: 104857600
   maxSendMsgSize: 104857600
+  logLevel: info

@@ -146,6 +146,7 @@ data:
         http_server_idle_timeout: 120s
         http_server_write_timeout: {{ .Values.server.httpServerWriteTimeout }}
         http_server_read_timeout: {{ .Values.server.httpServerReadTimeout }}
+        log_level = {{ .Values.server.logLevel }}
 
     storage_config:
         {{- if eq .Values.storage.store "bigtable" }}
