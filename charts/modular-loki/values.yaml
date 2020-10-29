@@ -305,3 +305,5 @@ serviceMonitor:
 server:
   httpServerWriteTimeout: 1m
   httpServerReadTimeout: 1m
+  maxRecvMsgSize: 1.048576e+08
+  maxSendMsgSize: 1.048576e+08
