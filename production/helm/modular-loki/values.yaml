@@ -7,6 +7,9 @@ loki:
   # loki.pullPolicy -- Image pull policy for Loki images.
   pullPolicy: IfNotPresent
 
+limits:
+  maxEntriesPerQuery: 5000
+
 memberlist:
   # memberlist.enable -- Enable the ring to be a Memberslist. This will disable consul.
   enable: false
