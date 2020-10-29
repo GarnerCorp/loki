@@ -57,7 +57,7 @@ data:
     frontend_worker:
         frontend_address: {{ include "loki-helm.querier-frontend" . }}.{{ .Release.Namespace }}.svc.cluster.local:9095
         grpc_client_config:
-            max_send_msg_size: 1.048576e+08
+            max_send_msg_size: 104857600
         parallelism: {{ .Values.querier.config.parallelism }}
 
     ingester:
@@ -89,7 +89,7 @@ data:
 
     ingester_client:
         grpc_client_config:
-            max_recv_msg_size: 6.7108864e+07
+            max_recv_msg_size: 67108864
         remote_timeout: 1s
 
     limits_config:
