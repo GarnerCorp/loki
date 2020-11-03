@@ -1,4 +1,6 @@
+# annotations -- use this field if you want to provide annotations to every StatefulSet/DaemonSet/ReplicaSet in this chart.
 annotations: {}
+# podAnnotations -- use this field if you want to provide podAnnotations to every pod in this chart.
 podAnnotations: {}
 
 loki:
@@ -6,9 +8,6 @@ loki:
   image: grafana/loki:1.6.1
   # loki.pullPolicy -- Image pull policy for Loki images.
   pullPolicy: IfNotPresent
-
-limits:
-  maxEntriesPerQuery: 5000
 
 memberlist:
   # memberlist.enable -- Enable the ring to be a Memberslist. This will disable consul.
@@ -100,29 +99,12 @@ ingester:
   extraVolumeMounts: []
   # ingester.extraVolumes -- Allow Extra volumes into the deployment
   extraVolumes: []
-
   # ingester.tolerations -- Add tolerations for pod assignment
   tolerations: []
   # ingester.nodeSelector -- Add Node labels for pod assignment
   nodeSelector: {}
   # ingester.affinity -- Replace default affinity with custom affinity
   affinity: {}
-  config:
-    # ingester.config.chunkSize -- The targeted _uncompressed_ size in bytes of a chunk block
-    chunkSize: 262144
-    # ingester.config.chunkIdle -- How long chunks should sit in-memory with no updates before being flushed if they don't hit the max block size
-    chunkIdle: 30m
-    # ingester.config.chunkTargetSize -- A target _compressed_ size in bytes for chunks
-    chunkTargetSize: 0
-    # ingester.config.chunkRetainPeriod -- How long chunks should be retained in-memory after they've been flushed.
-    chunkRetainPeriod: 15m
-    # ingester.config.maxChunkAge -- The maximum duration of a timeseries chunk in memory.
-    maxChunkAge: 1h
-    # ingester.config.trasnferRetries -- Retry transfer chunks when leaving ring
-    transferRetries: 10
-    # ingester.config.replicationFactor -- Replication factor between ingesters. Minimal is 1.
-    replicationFactor: 3
-
 
 memcached:
   # memcached.replicaCount -- Number of replicas for the Memcached deployment.
@@ -193,16 +175,6 @@ querier:
   nodeSelector: {}
   # querier.affinity -- Replace default affinity with custom affinity
   affinity: {}
-  config:
-    # querier.config.parallelism -- Number of simultaneous queries to process
-    parallelism: 10
-    # querier.config.queryTieout -- Timeout when querying ingesters or storage during the execution of a query request
-    queryTimeout: 1m
-    # Configuration options for the LogQL engine
-    engine:
-      # querier.config.engine.timeout -- Timeout for query execution
-      timeout: 1m
-
 
 querierFrontend:
   # querierFrontend.replicaCount -- Number of replicas for the Querier-frontend deployment.
@@ -221,16 +193,6 @@ querierFrontend:
   nodeSelector: {}
   # querierFrontend.affinity -- Replace default affinity with custom affinity
   affinity: {}
-  config:
-    # querierFrontend.config.splitQueries -- Set value for parallelize queries intervals
-    splitQueries: 30m
-    # querierFrontend.config.cacheResult -- Cache Results
-    cacheResult: true
-    # querierFrontend.config.logQueries -- Log queries that are longer than X amount of time.
-    logQueries: ""
-    # querierFrontend.config.compressResponses -- Compress responses fomr queries.
-    compressResponses: true
-
 
 tableManager:
   # tableManager.replicaCount -- Number of replicas for the Table-manager deployment.
@@ -249,30 +211,6 @@ tableManager:
   nodeSelector: {}
   # tableManager.affinity -- Replace default affinity with custom affinity
   affinity: {}
-
-storage:
-  # storage.store -- Type of store to use for your indexes.
-  store: cassandra
-  # storage.objectstore -- Type of store to use for your chunks. Currently only gcs is supported.
-  objectStore: gcs
-  config:
-    # storage.config.retentionPeriod -- Retention period of storing logs.
-    retentionPeriod: 0
-    # storage.config.retentionDelete -- Enable the deletion of indexes.
-    retentionDelete: false
-  cassandra:
-    # storage.cassandra.storeUrl -- Url of your cassandra instance.
-    storeUrl: loki-cassandra.monitoring.svc
-    # storage.cassandra.replicationFactor -- Replication factor of the label index in cassanra
-    replicationFactor: 1
-  bigtable:
-    # storage.bigtable.project -- Name of the google project
-    project: ""
-    # storage.bigtable.instance -- The google project instance to access
-    instance: loki-instance
-  gcs:
-    # storage.gcs.bucketName -- Name of your gcs bucket
-    bucketName: modular_loki
 
 canary:
   # canary.enabled -- Enable the Loki-Canary deployment
@@ -299,12 +237,151 @@ serviceMonitor:
   interval: ""
   # serviceMonitor.additionalLabels -- Set additional labels for the service monitor.
   additionalLabels: {}
-  # serviceMonitor.scrapeTimeout -- Set time out for scraping.
-  # scrapeTimeout: 10s
 
-server:
-  httpServerWriteTimeout: 1m
-  httpServerReadTimeout: 1m
-  maxRecvMsgSize: 104857600
-  maxSendMsgSize: 104857600
-  logLevel: info
+# lokiConfig uses the same values provided here:
+# https://grafana.com/docs/loki/latest/configuration/
+# These values are the defaults for this chart.
+# They can be overridden in a parent values file.
+lokiConfig:
+  auth_enabled: false
+  chunk_store_config:
+    chunk_cache_config:
+      memcached:
+        batch_size: 100
+        parallelism: 100
+      memcached_client:
+        consistent_hash: true
+        service: memcached-client
+    max_look_back_period: 0
+    write_dedupe_cache_config:
+      memcached:
+        batch_size: 100
+        parallelism: 100
+      memcached_client:
+        consistent_hash: true
+        service: memcached-client
+
+  memberlist:
+    enable: false
+    rejoin_interval: 5m
+    bind_port: 7946
+
+  distributor:
+    ring:
+      kvstore:
+        consul:
+          consistent_reads: false
+          http_client_timeout: 20s
+          watch_burst_size: 1
+          watch_rate_limit: 1
+        store: consul
+      heartbeat_timeout: 1m
+
+  frontend:
+    compress_responses: true
+    max_outstanding_per_tenant: 200
+
+  frontend_worker:
+    grpc_client_config:
+      max_send_msg_size: 104857600
+    parallelism: 10
+
+  ingester:
+    chunk_block_size: 262144
+    chunk_idle_period: 30m
+    chunk_target_size: 0
+    chunk_retain_period: 15m
+    max_chunk_age: 1h
+    lifecycler:
+      heartbeat_period: 5s
+      interface_names:
+        - eth0
+      join_after: 30s
+      num_tokens: 512
+      ring:
+        heartbeat_timeout: 1m
+        kvstore:
+          consul:
+            consistent_reads: true
+            http_client_timeout: 20s
+          store: consul
+        replication_factor: 3
+      max_transfer_retries: 10
+
+  ingester_client:
+    grpc_client_config:
+      max_recv_msg_size: 67108864
+    remote_timeout: 1s
+
+  limits_config:
+    enforce_metric_name: false
+    ingestion_burst_size_mb: 20
+    ingestion_rate_mb: 10
+    ingestion_rate_strategy: global
+    max_global_streams_per_user: 10000
+    max_query_length: 12000h
+    max_query_parallelism: 32
+    max_streams_per_user: 0
+    reject_old_samples: true
+    reject_old_samples_max_age: 168h
+    max_entries_limit_per_query: 5000
+
+  querier:
+    query_timeout: 1m
+    engine:
+      timeout: 1m
+
+  query_range:
+    align_queries_with_step: true
+    cache_results: true
+    max_retries: 5
+    results_cache:
+      cache:
+        memcached_client:
+          consistent_hash: true
+          max_idle_conns: 16
+          service: memcached-client
+          timeout: 500ms
+          update_interval: 1m
+      max_freshness: 10m
+    split_queries_by_interval: 30m
+
+  schema_config:
+    configs:
+      - from: "2020-07-21"
+        index:
+          prefix: index_
+        chunks:
+          prefix: chunks_
+        object_store: gcs
+        schema: v11
+        store: bigtable
+
+  server:
+    graceful_shutdown_timeout: 5s
+    grpc_server_max_concurrent_streams: 1000
+    grpc_server_max_recv_msg_size: 104857600
+    grpc_server_max_send_msg_size: 104857600
+    http_listen_port: 3100
+    http_server_idle_timeout: 120s
+    http_server_write_timeout: 1m
+    http_server_read_timeout: 1m
+    log_level: info
+
+  storage_config:
+    bigtable:
+      project: ""
+      instance: loki-instance
+    gcs:
+      bucket_name: modular-loki
+    index_queries_cache_config:
+      memcached:
+        batch_size: 100
+        parallelism: 100
+      memcached_client:
+        consistent_hash: true
+        service: memcached-client
+
+  table_manager:
+    retention_deletes_enabled: false
+    retention_period: 0
