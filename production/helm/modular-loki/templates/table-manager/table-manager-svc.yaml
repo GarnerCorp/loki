@@ -1,4 +1,4 @@
-{{ if eq .Values.storage.store "aws-dynamo" }}
+{{ if .Values.lokiConfig.storage_config.aws }}
 apiVersion: v1
 kind: Service
 metadata:

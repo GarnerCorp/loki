@@ -4,7 +4,7 @@ loki:
   standaloneMode: false
   # loki.modularMode -- if true, runs loki in microservices mode, in parallel processes
   modularMode: false
-  
+
 promtail:
   enabled: true
 
