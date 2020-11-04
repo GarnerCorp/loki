@@ -1,4 +1,10 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "loki-helm.fullname" . }}-config
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "loki-helm.labels" . | nindent 4 }}
+    app.kubernetes.io/component: loki-config
 data:
   config.yaml: |
     auth_enabled: false
@@ -174,9 +180,3 @@ data:
     table_manager:
         retention_deletes_enabled: {{ .Values.storage.config.retentionDelete }}
         retention_period: {{ .Values.storage.config.retentionPeriod }}
-kind: ConfigMap
-metadata:
-  name: {{ include "loki-helm.fullname" . }}-config
-  namespace: {{ .Release.Namespace }}
-  labels: {{- include "loki-helm.labels" . | nindent 4 }}
-    app.kubernetes.io/component: loki-config
