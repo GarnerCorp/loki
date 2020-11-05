@@ -306,7 +306,7 @@ lokiConfig:
             http_client_timeout: 20s
           store: consul
         replication_factor: 3
-      max_transfer_retries: 10
+    max_transfer_retries: 10
 
   ingester_client:
     grpc_client_config:
