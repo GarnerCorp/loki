@@ -6,7 +6,7 @@ dependencies:
 - name: "modular-loki"
   condition: loki.modularMode
   repository: "file://../modular-loki"
-  version: "^0.5.1"
+  version: "^1.0.0"
 - name: "promtail"
   condition: promtail.enabled
   repository: "file://../promtail"
