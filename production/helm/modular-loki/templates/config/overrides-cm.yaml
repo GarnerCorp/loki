@@ -16,11 +16,15 @@ data:
         write_dedupe_cache_config:
           memcached_client:
             host: {{ include "loki-helm.memcached-index-writes" . }}.{{ .Release.Namespace }}.svc.cluster.local
-      memberlist:
+    {{ if .Values.memberlist.enable }}
+    memberlist:
+        rejoin_interval: {{ .Values.memberlist.rejoin }}
+        bind_port: {{ .Values.memberlist.port }}
         join_members:
-          - {{ include "loki-helm.distributor" . }}
-          - {{ include "loki-helm.ingester" . }}
-          - {{ include "loki-helm.querier" . }}
+            - {{ include "loki-helm.distributor" . }}
+            - {{ include "loki-helm.ingester" . }}
+            - {{ include "loki-helm.querier" . }}
+    {{ end }}
       distributor:
         ring:
           kvstore:

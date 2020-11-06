@@ -261,11 +261,6 @@ lokiConfig:
         consistent_hash: true
         service: memcached-client
 
-  memberlist:
-    enable: false
-    rejoin_interval: 5m
-    bind_port: 7946
-
   distributor:
     ring:
       kvstore:
