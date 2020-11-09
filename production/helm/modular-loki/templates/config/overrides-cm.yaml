@@ -6,44 +6,5 @@ metadata:
   labels: {{- include "loki-helm.labels" . | nindent 4 }}
     app.kubernetes.io/component: overrides-config
 data:
-  # Overrides are provided to resolve values using helm templates and variables.
   overrides.yaml: |
-    overrides:
-      chunk_store_config:
-        chunk_cache_config:
-          memcached_client:
-            host: {{ include "loki-helm.memcached" . }}.{{ .Release.Namespace }}.svc.cluster.local
-        write_dedupe_cache_config:
-          memcached_client:
-            host: {{ include "loki-helm.memcached-index-writes" . }}.{{ .Release.Namespace }}.svc.cluster.local
-    {{ if .Values.memberlist.enable }}
-    memberlist:
-        rejoin_interval: {{ .Values.memberlist.rejoin }}
-        bind_port: {{ .Values.memberlist.port }}
-        join_members:
-            - {{ include "loki-helm.distributor" . }}
-            - {{ include "loki-helm.ingester" . }}
-            - {{ include "loki-helm.querier" . }}
-    {{ end }}
-      distributor:
-        ring:
-          kvstore:
-            consul:
-              host: {{ include "loki-helm.consul" . }}.{{ .Release.Namespace }}.svc.cluster.local:8500
-      frontend_worker:
-        frontend_address: {{ include "loki-helm.querier-frontend" . }}.{{ .Release.Namespace }}.svc.cluster.local:9095
-      ingester:
-        lifecycler:
-          ring:
-            kvstore:
-              consul:
-                host: {{ include "loki-helm.consul" . }}.{{ .Release.Namespace }}.svc.cluster.local:8500
-      query_range:
-        results_cache:
-          cache:
-            memcached_client:
-              host: {{ include "loki-helm.memcached-frontend" . }}.{{ .Release.Namespace }}.svc.cluster.local
-      storage_config:
-        index_queries_cache_config:
-          memcached_client:
-            host: {{ include "loki-helm.memcached-index-queries" . }}.{{ .Release.Namespace }}.svc.cluster.local
+    overrides: {}

@@ -241,7 +241,6 @@ serviceMonitor:
 # lokiConfig uses the same values provided here:
 # https://grafana.com/docs/loki/latest/configuration/
 # These values are the defaults for this chart.
-# They can be overridden in a parent values file.
 lokiConfig:
   auth_enabled: false
   chunk_store_config:
@@ -252,6 +251,7 @@ lokiConfig:
       memcached_client:
         consistent_hash: true
         service: memcached-client
+        host: ""
     max_look_back_period: 0
     write_dedupe_cache_config:
       memcached:
@@ -260,6 +260,7 @@ lokiConfig:
       memcached_client:
         consistent_hash: true
         service: memcached-client
+        host: ""
 
   distributor:
     ring:
@@ -269,6 +270,7 @@ lokiConfig:
           http_client_timeout: 20s
           watch_burst_size: 1
           watch_rate_limit: 1
+          host: ""
         store: consul
       heartbeat_timeout: 1m
 
@@ -280,6 +282,7 @@ lokiConfig:
     grpc_client_config:
       max_send_msg_size: 104857600
     parallelism: 10
+    frontend_address: ""
 
   ingester:
     chunk_block_size: 262144
@@ -299,6 +302,7 @@ lokiConfig:
           consul:
             consistent_reads: true
             http_client_timeout: 20s
+            host: ""
           store: consul
         replication_factor: 3
     max_transfer_retries: 10
@@ -338,6 +342,7 @@ lokiConfig:
           service: memcached-client
           timeout: 500ms
           update_interval: 1m
+          host: ""
       max_freshness: 10m
     split_queries_by_interval: 30m
 
@@ -376,6 +381,7 @@ lokiConfig:
       memcached_client:
         consistent_hash: true
         service: memcached-client
+        host: ""
 
   table_manager:
     retention_deletes_enabled: false
